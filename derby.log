@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Wed Oct 16 01:01:45 CEST 2019:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-016d-d1a7-e93b-00000e800000 
+on database directory E:\Java\TJEE\mavenjfx\DB\loginGitLab_db with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@14514713 
+Loaded from file:/C:/Users/Marcin/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
+java.vendor=JetBrains s.r.o
+java.runtime.version=11-ea+102
+user.dir=E:\Java\TJEE\mavenjfx
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
