@@ -41,7 +41,7 @@ public class Main {
                     System.out.println("  " + ((RowEntity) o).getNazwa());
                     if(((RowEntity)o).getIdZnaku() == 13) {
                         System.out.println("setting to piesek");
-                        ((RowEntity) o).setNazwa("paweł");
+                        ((RowEntity) o).setNazwa("piesek");
 //                        session.saveOrUpdate(o);
                     }
                 }

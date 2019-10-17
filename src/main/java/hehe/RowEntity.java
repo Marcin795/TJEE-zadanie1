@@ -18,6 +18,7 @@ public class RowEntity {
     private BooleanProperty czyDotyczyJednejStrony = new SimpleBooleanProperty();
 
     @Id
+    @GeneratedValue
     @Column(name = "ID_ZNAKU")
     public int getIdZnaku() {
         return idZnaku.getValue();
@@ -32,7 +33,7 @@ public class RowEntity {
     }
 
     @Basic
-    @Column(name = "OZNACZENIE")
+    @Column(name = "OZNACZENIE", length=5)
     public String getOznaczenie() {
         return oznaczenie.getValueSafe();
     }
