@@ -24,7 +24,7 @@ public class DbRow {
         return oznaczenie;
     }
 
-    public StringProperty nazwaPropert() {
+    public StringProperty nazwaProperty() {
         return nazwa;
     }
 

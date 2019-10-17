@@ -10,7 +10,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.hibernate.HibernateException;
+import org.hibernate.Metamodel;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
+import javax.persistence.metamodel.EntityType;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -19,7 +26,7 @@ import java.sql.SQLException;
 public class PrimaryController {
 
     @FXML
-    TableView<DbRow> dbTable;
+    TableView<RowEntity> dbTable;
 
     @FXML
     TableColumn<DbRow, Integer> columnId;
@@ -42,16 +49,51 @@ public class PrimaryController {
     @FXML
     TableColumn<DbRow, Boolean> columnJednaStrona;
 
+    private SessionFactory factory = new Configuration().configure().buildSessionFactory();
+    private Session session = factory.openSession();
+
     @FXML
     private void switchToSecondary() throws IOException {
         App.setRoot("secondary");
     }
 
+    @FXML
+    private void test() {
+        dbTable.getItems().get(0).setNazwa("dupa1234");
+        session.save(dbTable.getItems().get(0));
+
+    }
+
     public void initialize() {
+        setCellValueFactories();
 
-        ObservableList<DbRow> data = FXCollections.observableArrayList();
+        try {
+            final Metamodel metamodel = session.getSessionFactory().getMetamodel();
 
-        columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
+            for(EntityType<?> entityType : metamodel.getEntities()) {
+                final String entityName = entityType.getName();
+                final Query query = session.createQuery("from " + entityName);
+
+                ObservableList<RowEntity> data = FXCollections.observableArrayList();
+                for(Object row : query.list()) {
+                    RowEntity entry = (RowEntity) row;
+                    System.out.println(entry.getIdZnaku() + " " + entry.getNazwa() + " " + entry.getCzyPionowy());
+
+                    data.add(entry);
+                }
+                dbTable.setItems(data);
+                dbTable.setEditable(true);
+            }
+
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private void setCellValueFactories() {
+        columnId.setCellValueFactory(new PropertyValueFactory<>("idZnaku"));
         columnOznaczenie.setCellValueFactory(new PropertyValueFactory<>("oznaczenie"));
         columnNazwa.setCellValueFactory(new PropertyValueFactory<>("nazwa"));
         columnOpis.setCellValueFactory(new PropertyValueFactory<>("opis"));
@@ -60,6 +102,13 @@ public class PrimaryController {
         columnPionowy.setCellFactory( tc -> new CheckBoxTableCell<>());
         columnJednaStrona.setCellValueFactory(new PropertyValueFactory<>("czyDotyczyJednejStrony"));
         columnJednaStrona.setCellFactory( tc -> new CheckBoxTableCell<>());
+    }
+
+    private void useDBConnection() {
+        ObservableList<DbRow> data = FXCollections.observableArrayList();
+
+        setCellValueFactories();
+
         DbConnection db = DbConnection.getInstance();
         db.open();
 
@@ -91,7 +140,7 @@ public class PrimaryController {
                 }
                 System.out.println();
             }
-            dbTable.setItems(data);
+//            dbTable.setItems(data);
             dbTable.setEditable(true);
         } catch (SQLException e) {
             e.printStackTrace();
