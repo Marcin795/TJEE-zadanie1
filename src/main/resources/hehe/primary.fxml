@@ -9,56 +9,54 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="385.0" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.231" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hehe.PrimaryController">
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.231" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hehe.PrimaryController">
    <children>
-      <TableView fx:id="dbTable" prefHeight="263.0" prefWidth="700.0" stylesheets="@styles.css">
+      <TableView fx:id="dbTable" prefHeight="300.0" stylesheets="@styles.css">
         <columns>
-          <TableColumn fx:id="columnId" prefWidth="20.0" text="ID" />
-          <TableColumn fx:id="columnOznaczenie" onEditCommit="#commitTransaction" onEditStart="#createTransaction" prefWidth="70.0" text="Oznaczenie" />
-            <TableColumn fx:id="columnNazwa" prefWidth="150.0" text="Nazwa" />
-            <TableColumn fx:id="columnOpis" prefWidth="300.0" text="Opis" />
-            <TableColumn fx:id="columnRodzaj" minWidth="0.0" prefWidth="100.0" text="Rodzaj" />
+          <TableColumn fx:id="columnId" prefWidth="40.0" text="ID" />
+          <TableColumn fx:id="columnOznaczenie" onEditCommit="#commitTransaction" prefWidth="70.0" text="Oznaczenie" />
+            <TableColumn fx:id="columnNazwa" onEditCommit="#commitTransaction" prefWidth="150.0" text="Nazwa" />
+            <TableColumn fx:id="columnOpis" onEditCommit="#commitTransaction" prefWidth="300.0" text="Opis" />
+            <TableColumn fx:id="columnRodzaj" minWidth="0.0" onEditCommit="#commitTransaction" prefWidth="100.0" text="Rodzaj" />
             <TableColumn fx:id="columnPionowy" prefWidth="30.0" text="P" />
             <TableColumn fx:id="columnJednaStrona" prefWidth="30.0" text="JS" />
+            <TableColumn fx:id="columnDelete" prefWidth="30.0" />
         </columns>
       </TableView>
-      <GridPane>
+      <GridPane hgap="5.0" vgap="5.0">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="345.0" minWidth="10.0" prefWidth="164.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="536.0" minWidth="10.0" prefWidth="536.0" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER" />
-            <TextField GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.vgrow="NEVER" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <CheckBox mnemonicParsing="false" text="CheckBox" />
-            <CheckBox mnemonicParsing="false" text="CheckBox" />
-            <Label text="Label" GridPane.rowIndex="2" />
+            <TextField fx:id="newOznaczenie" promptText="Oznaczenie" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER" />
+            <TextField fx:id="newNazwa" promptText="Nazwa" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.vgrow="NEVER" />
+            <TextField fx:id="newOpis" promptText="Opis" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="newRodzaj" promptText="Rodzaj" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <CheckBox fx:id="newCzyPionowy" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="Pionowy" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <CheckBox fx:id="newCzyDotyczyJednejStrony" mnemonicParsing="false" prefHeight="0.0" text="Dotyczy jednej strony" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.vgrow="ALWAYS" />
+            <Label text="Nazwa" GridPane.rowIndex="1" />
+            <Label text="Oznaczenie" />
+            <Label text="Opis" GridPane.rowIndex="2" />
+            <Label text="Rodzaj" GridPane.rowIndex="3" />
+            <Button mnemonicParsing="false" onAction="#submit" text="Dodaj" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
          </children>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
       </GridPane>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <Button fx:id="primaryButton" contentDisplay="CENTER" onAction="#switchToSecondary" text="Switch to Secondary View">
-               <HBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </HBox.margin></Button>
-            <Button fx:id="testButton" mnemonicParsing="false" onAction="#test" text="woop woop">
-               <HBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </HBox.margin></Button>
-         </children>
-      </HBox>
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

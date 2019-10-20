@@ -3,7 +3,6 @@ package hehe;
 import javafx.beans.property.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -23,8 +22,7 @@ public class RowEntity {
     private BooleanProperty czyDotyczyJednejStrony = new SimpleBooleanProperty();
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO, generator="my_seq_gen")
-    @SequenceGenerator(name="my_seq_gen", sequenceName="ENTITY_SEQ")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE)
     @Column(name = "ID_ZNAKU")
     public int getIdZnaku() {
         return idZnaku.getValue();
