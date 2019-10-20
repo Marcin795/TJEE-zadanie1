@@ -1,12 +1,17 @@
 package hehe;
 
 import javafx.beans.property.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "LOGINGITLAB_ZNAKI_DROGOWE_TB", schema = "APP")
+@NoArgsConstructor
+@AllArgsConstructor
 public class RowEntity {
 
     private IntegerProperty idZnaku = new SimpleIntegerProperty();
@@ -18,7 +23,8 @@ public class RowEntity {
     private BooleanProperty czyDotyczyJednejStrony = new SimpleBooleanProperty();
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO, generator="my_seq_gen")
+    @SequenceGenerator(name="my_seq_gen", sequenceName="ENTITY_SEQ")
     @Column(name = "ID_ZNAKU")
     public int getIdZnaku() {
         return idZnaku.getValue();
@@ -33,7 +39,7 @@ public class RowEntity {
     }
 
     @Basic
-    @Column(name = "OZNACZENIE", length=5)
+    @Column(name = "OZNACZENIE", length = 5)
     public String getOznaczenie() {
         return oznaczenie.getValueSafe();
     }
@@ -47,7 +53,7 @@ public class RowEntity {
     }
 
     @Basic
-    @Column(name = "NAZWA")
+    @Column(name = "NAZWA", length = 15)
     public String getNazwa() {
         return nazwa.getValueSafe();
     }
@@ -61,7 +67,7 @@ public class RowEntity {
     }
 
     @Basic
-    @Column(name = "OPIS")
+    @Column(name = "OPIS", length = 30)
     public String getOpis() {
         return opis.getValueSafe();
     }
@@ -75,7 +81,7 @@ public class RowEntity {
     }
 
     @Basic
-    @Column(name = "RODZAJ")
+    @Column(name = "RODZAJ", length = 10)
     public String getRodzaj() {
         return rodzaj.getValueSafe();
     }
@@ -133,5 +139,14 @@ public class RowEntity {
     @Override
     public int hashCode() {
         return Objects.hash(idZnaku, oznaczenie, nazwa, opis, rodzaj, czyPionowy, czyDotyczyJednejStrony);
+    }
+
+    RowEntity(String oznaczenie, String nazwa, String opis, String rodzaj, Boolean czyPionowy, Boolean czyDotyczyJednejStrony) {
+        setOznaczenie(oznaczenie);
+        setNazwa(nazwa);
+        setOpis(opis);
+        setRodzaj(rodzaj);
+        setCzyPionowy(czyPionowy);
+        setCzyDotyczyJednejStrony(czyDotyczyJednejStrony);
     }
 }

@@ -4,13 +4,15 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url">jdbc:derby:E:/Java/TJEE/DB/loginGitLab_db;create=true</property>
+        <property name="connection.url">jdbc:derby:./DB/loginGitLab_db;create=true</property>
         <property name="connection.driver_class">org.apache.derby.jdbc.EmbeddedDriver</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+<!--        <property name="hibernate.hbm2ddl.import_files">import.sql</property>-->
+        <property name="hibernate.dialect">org.hibernate.dialect.DerbyTenSevenDialect</property>
         <mapping class="hehe.RowEntity"/>
         <!-- <property name="connection.username"/> -->
         <!-- <property name="connection.password"/> -->
 
         <!-- DB schema will be updated if needed -->
-        <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
     </session-factory>
 </hibernate-configuration>
