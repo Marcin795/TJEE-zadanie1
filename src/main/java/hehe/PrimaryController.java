@@ -16,7 +16,6 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class PrimaryController {
@@ -43,11 +42,6 @@ public class PrimaryController {
     private SessionFactory factory = new Configuration().configure().buildSessionFactory();
     private Session session = factory.openSession();
     private Transaction tx;
-
-    @FXML
-    private void switchToSecondary() throws IOException {
-        App.setRoot("secondary");
-    }
 
     public void initialize() {
         setCellValueFactories();
